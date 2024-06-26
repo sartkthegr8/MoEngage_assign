@@ -5,16 +5,12 @@ import { connect } from "react-redux";
 
 const API_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
-
-const BreweryDetails = ({user}) => {
-
-
+const BreweryDetails = ({ user }) => {
   const { breweryId } = useParams();
   const [brewery, setBrewery] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [rating, setRating] = useState(1); // Default rating value
+  const [rating, setRating] = useState(1);
   const [description, setDescription] = useState("");
-  
 
   useEffect(() => {
     const fetchBrewery = async () => {
@@ -30,7 +26,7 @@ const BreweryDetails = ({user}) => {
 
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`${API_URL}/reviews/${breweryId}`); // Adjust URL to your backend API
+        const response = await axios.get(`${API_URL}/reviews/${breweryId}`);
         setReviews(response.data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
@@ -48,13 +44,12 @@ const BreweryDetails = ({user}) => {
         breweryId,
         rating,
         description,
-        user:user.name,
+        user: user.name,
       };
-      // Assuming your backend API endpoint for posting reviews is `/api/reviews`
       const response = await axios.post(`${API_URL}/reviews/add`, newReview);
-      setReviews([...reviews, response.data]); // Add new review to the state
-      setRating(1); // Reset rating input
-      setDescription(""); // Clear description input
+      setReviews([...reviews, response.data]);
+      setRating(1);
+      setDescription("");
     } catch (error) {
       console.error("Error submitting review:", error);
     }
@@ -81,10 +76,10 @@ const BreweryDetails = ({user}) => {
           <h2 className="text-xl font-bold mt-4">Reviews</h2>
           <ul>
             {reviews.map((review) => (
-              <li key={review.id} className="my-2">
-                <strong>User:</strong> {review.user} <br />
-                <strong>Rating:</strong> {review.rating} <br />
-                <strong>Description:</strong> {review.description}
+              <li key={review.id} className="my-4 p-4 bg-gray-100 bg-opacity-50 border rounded shadow">
+                <p><strong>User:</strong> {review.user}</p>
+                <p><strong>Rating:</strong> {review.rating}</p>
+                <p><strong>Description:</strong> {review.description}</p>
               </li>
             ))}
           </ul>
@@ -125,15 +120,12 @@ const BreweryDetails = ({user}) => {
   );
 };
 
-
 const mapStateToProps = ({ session }) => {
   return { user: session.user };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BreweryDetails);
-
-
-

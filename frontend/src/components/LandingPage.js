@@ -61,13 +61,7 @@ const LandingPage = ({ children, user }) => {
                   <p className="block px-4 py-2 border-b">
                     HI, <span className="capitalize">{user.name}</span>!
                   </p>
-                  <button
-                    type="button"
-                    className="block px-4 w-full text-left py-2 text-gray-700 hover:bg-gray-100"
-                    onClick={() => navigate("/account")}
-                  >
-                    Account
-                  </button>
+                
                   <button
                     type="button"
                     className="block px-4 w-full text-left py-2 text-gray-700 hover:bg-gray-100"
